@@ -1,2 +1,5 @@
 # Ignore node modules from node
 node_modules
+
+#ignore the compiled js?
+*/tests/*.js
