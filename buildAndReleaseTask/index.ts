@@ -1,6 +1,5 @@
 import tl = require('azure-pipelines-task-lib/task');
 import azcosmos = require('@azure/cosmos');
-import jsonfile = require('jsonfile');
 import fs = require('fs');
 
 // global-ish
@@ -8,12 +7,6 @@ var records: Array<JSON> = [];
 
 async function run() {
     try {
-        // const inputString: string | undefined = tl.getInput('samplestring', true);
-        // if (inputString == 'bad') {
-        //     tl.setResult(tl.TaskResult.Failed, 'Bad input was given');
-        //     return;
-        // }
-        // console.log('Hello', inputString);
         const inputEndpoint: string | undefined = (tl.getInput('cosmosEndpoint', true))!;
         const inputKey: string | undefined = (tl.getInput('cosmosKey', true))!;
         const inputDatabase: string | undefined = (tl.getInput('cosmosDatabase', true))!;
@@ -43,7 +36,6 @@ async function run() {
             if (err) throw err;
 
             records = JSON.parse(data.toString());
-            // console.log(records);
         });
 
         console.log('before the database checks');
@@ -59,7 +51,6 @@ async function run() {
         for (const record of records) {
             container.items.upsert(record);
             console.log('upsert happened')
-            // console.log('wrote', record);
         }
         console.log('Upload complete');
     }
