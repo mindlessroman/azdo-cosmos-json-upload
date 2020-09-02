@@ -4,3 +4,6 @@ node_modules
 #ignore the compiled js?
 */tests/*.js
 *.js
+
+# VSCODE 
+.vscode
