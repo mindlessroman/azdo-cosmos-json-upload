@@ -12,22 +12,21 @@ describe('Sample task tests', function () {
 
     });
 
-    // it('should succeed with simple inputs', function(done: Mocha.Done) {
-    //     this.timeout(1000);
+    it('should succeed with simple inputs', function(done: Mocha.Done) {
+        this.timeout(1000);
 
-    //     let tp = path.join(__dirname, 'success.js');
-    //     let tr: ttm.MockTestRunner = new ttm.MockTestRunner(tp);
+        let tp = path.join(__dirname, 'success.js');
+        let tr: ttm.MockTestRunner = new ttm.MockTestRunner(tp);
 
-    //     tr.run();
-    //     console.log(tr.succeeded);
-    //     console.log(tr);
-    //     assert.equal(tr.succeeded, true, 'should have succeeded');
-    //     assert.equal(tr.warningIssues.length, 0, 'should have no warnings');
-    //     assert.equal(tr.errorIssues.length, 0, 'should have no errors');
-    //     console.log(tr.stdout);
-    //     // assert.equal(tr.stdout.indexOf('Hello human') >= 0, true, 'should display Hello human');
-    //     done();
-    // });
+        tr.run();
+        console.log(tr.succeeded);
+        console.log(tr.stdout);
+        assert.equal(tr.succeeded, true, 'should have succeeded');
+        assert.equal(tr.warningIssues.length, 0, 'should have no warnings');
+        assert.equal(tr.errorIssues.length, 0, 'should have no errors');
+        assert.equal(tr.stdout.indexOf('Upload complete') >= 0, true, 'should display `upload complete`');
+        done();
+    });
 
     it('should fail with a bad URL input', function(done: Mocha.Done) {
         this.timeout(1000);

@@ -1,6 +1,6 @@
 import tl = require('azure-pipelines-task-lib/task');
 import azcosmos = require('@azure/cosmos');
-import fs = require('fs');
+import js = require('jsonfile');
 
 // global-ish
 var records: Array<JSON> = [];
@@ -24,34 +24,32 @@ async function run() {
         if (!inputFileLocation.toLowerCase().endsWith('.json')) {
             throw new Error('Expected JSON file');
         }
-        console.log('before the cosmosclient');
+
+        // Get the CosmosClient to connect to the CosmosDB instance
         const client = new azcosmos.CosmosClient({ endpoint, key });
-        console.log('after the cosmosclient')
+
         if (!client) {
             throw new Error('Cannot connect CosmosClient with provided credentials');
         }
 
-        // Get the contents of the json file
-        fs.readFile(inputFileLocation, function(err, data) {
-            if (err) throw err;
+        // Read the JSON file
+        records = js.readFileSync(inputFileLocation);
 
-            records = JSON.parse(data.toString());
-        });
-
-        console.log('before the database checks');
-        // set up the database and container
+        console.log('Connecting to database...');
+        // Set up the database and container
         const { database } = await client.databases.createIfNotExists({ id: inputDatabase});
-        console.log('after the database check');
-        console.log('before the container');
+        console.log('Connected to database', inputDatabase);
+        console.log('Connecting to container...');
         const { container } = await client.database(database.id).containers.createIfNotExists({ id: inputContainer, partitionKey: inputPartition });
-        console.log('after the container');
+        console.log('Connected to container', inputContainer);
 
-        console.log('before upsert')
-
+        // For every record in the file, upsert to the container
+        console.log('Beginning upsert process...');
         for (const record of records) {
             container.items.upsert(record);
-            console.log('upsert happened')
+            console.log('Upserted', record);
         }
+
         console.log('Upload complete');
     }
     catch (err) {

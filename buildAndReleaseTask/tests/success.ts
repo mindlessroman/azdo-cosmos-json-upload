@@ -12,13 +12,7 @@ tmr.setInput('cosmosContainer', 'example-container');
 tmr.setInput('cosmosPartition', '/example-partition')
 tmr.setInput('fileLocation', 'path/to/file.json');
 
-// Mock the libraries that are imported: fs, jsonfile, @azure/cosmos
-tmr.registerMock('fs', {
-    readFile: function(location : string) {
-        return {};
-    }
-})
-
+// // Mock the libraries that are imported: jsonfile, @azure/cosmos
 tmr.registerMock('jsonfile', {
     readFileSync: function(location : string) {
         return [1,2,3];
