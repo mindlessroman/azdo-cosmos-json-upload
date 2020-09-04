@@ -8,17 +8,25 @@ var records: Array<JSON> = [];
 
 async function run() {
     try {
-        const inputEndpoint: string | undefined = (tl.getInput('cosmosEndpoint', true))!;
-        const inputKey: string | undefined = (tl.getInput('cosmosKey', true))!;
+        const inputEndpointName: string | undefined = (tl.getInput('cosmosEndpointName', true))!;
+        const inputKeyName: string | undefined = (tl.getInput('cosmosKeyName', true))!;
+
+        const inputEndpoint = tl.getVariable(inputEndpointName);
+        const inputKey = tl.getVariable(inputKeyName);
+
+        var endpoint = inputEndpoint!;
+        var key = inputKey!;
+
         const inputDatabase: string | undefined = (tl.getInput('cosmosDatabase', true))!;
         const inputContainer: string | undefined = (tl.getInput('cosmosContainer', true))!;
         const inputPartition: string | undefined = (tl.getInput('cosmosPartition', false));
         const inputFileLocation: string | undefined = (tl.getInput('fileLocation', true))!;
 
         // Situate in the temp directory
-        //Thank you HelmDeployV0 Task for inspo
-        // const tempDir = tl.getVariable('agent.tempDirectory');
+        // Thank you HelmDeployV0 Task for inspo
         var rootDir = tl.getVariable('System.DefaultWorkingDirectory') || '';
+        console.log('Setting root directory to', rootDir);
+
         var allPaths = tl.find(inputFileLocation, { allowBrokenSymbolicLinks: true, followSpecifiedSymbolicLink: true,followSymbolicLinks: true });
         var matching = tl.match(allPaths, inputFileLocation, rootDir, {matchBase: false});
 
@@ -27,8 +35,7 @@ async function run() {
         }
         const fileLocation = matching[0];
 
-        var endpoint = inputEndpoint!;
-        var key = inputKey!;
+
 
         if (inputPartition && !inputPartition.startsWith('/')) {
             throw new Error('If providing a partition key, it must be preceded by a \/');
