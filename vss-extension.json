@@ -1,8 +1,8 @@
 {
     "manifestVersion": 1,
-    "id": "my-first-extension",
-    "publisher": "Microsoft",
-    "version": "1.0.0",
+    "id": "json-upload-cosmosdb",
+    "publisher": "mindlessroman",
+    "version": "0.1.3",
     "name": "Azure Cosmos DB Data Upload",
     "description": "An task to automate adding data upload to a Cosmos DB instance",
     "public": false,
