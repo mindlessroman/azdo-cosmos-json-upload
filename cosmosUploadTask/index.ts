@@ -1,6 +1,7 @@
 import tl = require('azure-pipelines-task-lib/task');
 import azcosmos = require('@azure/cosmos');
 import js = require('jsonfile');
+import fs = require('fs');
 
 // global-ish
 var records: Array<JSON> = [];
@@ -14,6 +15,18 @@ async function run() {
         const inputPartition: string | undefined = (tl.getInput('cosmosPartition', false));
         const inputFileLocation: string | undefined = (tl.getInput('fileLocation', true))!;
 
+        // Situate in the temp directory
+        //Thank you HelmDeployV0 Task for inspo
+        // const tempDir = tl.getVariable('agent.tempDirectory');
+        var rootDir = tl.getVariable('System.DefaultWorkingDirectory') || '';
+        var allPaths = tl.find(inputFileLocation, { allowBrokenSymbolicLinks: true, followSpecifiedSymbolicLink: true,followSymbolicLinks: true });
+        var matching = tl.match(allPaths, inputFileLocation, rootDir, {matchBase: false});
+
+        if (!matching || matching.length == 0) {
+            throw new Error('Cannot resolve path.');
+        }
+        const fileLocation = matching[0];
+
         var endpoint = inputEndpoint!;
         var key = inputKey!;
 
@@ -21,7 +34,7 @@ async function run() {
             throw new Error('If providing a partition key, it must be preceded by a \/');
         }
 
-        if (!inputFileLocation.toLowerCase().endsWith('.json')) {
+        if (!fileLocation.toLowerCase().endsWith('.json')) {
             throw new Error('Expected JSON file');
         }
 
@@ -33,7 +46,7 @@ async function run() {
         }
 
         // Read the JSON file
-        records = js.readFileSync(inputFileLocation);
+        records = js.readFileSync(fileLocation);
 
         console.log('Connecting to database...');
         // Set up the database and container
