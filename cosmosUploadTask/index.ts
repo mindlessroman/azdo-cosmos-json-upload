@@ -1,18 +1,14 @@
 import tl = require('azure-pipelines-task-lib/task');
 import azcosmos = require('@azure/cosmos');
 import js = require('jsonfile');
-import fs = require('fs');
 
 // global-ish
 var records: Array<JSON> = [];
 
 async function run() {
     try {
-        const inputEndpointName: string | undefined = (tl.getInput('cosmosEndpointName', true))!;
-        const inputKeyName: string | undefined = (tl.getInput('cosmosKeyName', true))!;
-
-        const inputEndpoint = tl.getVariable(inputEndpointName);
-        const inputKey = tl.getVariable(inputKeyName);
+        const inputEndpoint: string | undefined = (tl.getInput('cosmosEndpointName', true))!;
+        const inputKey: string | undefined = (tl.getInput('cosmosKeyName', true))!;
 
         var endpoint = inputEndpoint!;
         var key = inputKey!;
@@ -34,8 +30,6 @@ async function run() {
             throw new Error('Cannot resolve path.');
         }
         const fileLocation = matching[0];
-
-
 
         if (inputPartition && !inputPartition.startsWith('/')) {
             throw new Error('If providing a partition key, it must be preceded by a \/');
