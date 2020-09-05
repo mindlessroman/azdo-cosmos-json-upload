@@ -4,13 +4,13 @@
     "name": "AzDOCosmosDBUpload",
     "friendlyName": "Cosmos DB JSON Upload",
     "description": "When provided a file path to a supported file type in the repository, upload the contents to a Cosmos DB instance",
-    "helpMarkDown": "For the Endpoint and Primary Key names, enter the name of the variable name. Separately add a reference to the [variable group in the YAML file](https://docs.microsoft.com/en-us/azure/devops/pipelines/library/variable-groups?view=azure-devops&tabs=yaml#use-a-variable-group) and surround the names in the YAML format - `$(<variable name>)`",
+    "helpMarkDown": "For the Endpoint and Primary Key names, enter the name of the variable name. Separately add a reference to the variable group in the YAML file and surround the names in the YAML format - `$(<variable name>)`",
     "category": "Utility",
     "author": "Microsoft Corporation",
     "version": {
         "Major": 0,
         "Minor": 1,
-        "Patch": 6
+        "Patch": 7
     },
     "runsOn": [],
     "visibility": [],
