@@ -7,3 +7,9 @@ node_modules
 
 # VSCODE 
 .vscode
+
+# Packages for marketplace
+*.vsix
+
+# tfx runtime files
+.taskkey
