@@ -9,4 +9,3 @@ If a user needs to have a CosmosDB instance populated as part of a CI/CD testing
 this task makes that easy. Instead of having to create a separate script to manage the upload, add
 this task to the pipeline. The data then can be accessed and manipulated in whatever testing is
 required.
-
