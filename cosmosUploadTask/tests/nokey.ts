@@ -13,9 +13,9 @@ let answers: ma.TaskLibAnswers = <ma.TaskLibAnswers>{
 tmr.setAnswers(answers);
 
 tmr.setInput('cosmosEndpointName', 'http://goodurl.com');
-tmr.setInput('cosmosKeyName', 'someKey');
+tmr.setInput('cosmosKeyName', '');
 tmr.setInput('cosmosDatabase', 'example-database');
 tmr.setInput('cosmosContainer', 'example-container');
-tmr.setInput('cosmosPartition', 'example-partition');
+tmr.setInput('cosmosPartition', '/example-partition');
 tmr.setInput('fileLocation', 'path/to/file.json');
 tmr.run();

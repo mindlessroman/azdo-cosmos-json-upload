@@ -1,3 +1,4 @@
+import ma = require('azure-pipelines-task-lib/mock-answer');
 import tmrm = require('azure-pipelines-task-lib/mock-run');
 import path = require('path');
 
@@ -5,11 +6,10 @@ let taskPath = path.join(__dirname, '..', 'index.js');
 let tmr: tmrm.TaskMockRunner = new tmrm.TaskMockRunner(taskPath);
 
 // Set up the "environment" inputs
-tmr.setInput('cosmosEndpoint', 'https://cosmosdb.com');
-tmr.setInput('cosmosKey', 'someKey');
+tmr.setInput('cosmosEndpointName', 'https://cosmosdb.com');
+tmr.setInput('cosmosKeyName', 'someKey');
 tmr.setInput('cosmosDatabase', 'example-database');
 tmr.setInput('cosmosContainer', 'example-container');
-tmr.setInput('cosmosPartition', '/example-partition')
 tmr.setInput('fileLocation', 'path/to/file.json');
 
 // // Mock the libraries that are imported: jsonfile, @azure/cosmos
@@ -19,7 +19,14 @@ tmr.registerMock('jsonfile', {
     }
 })
 
-// Register a mock of the cosmos lib - we're not here to test it's functionality
+let answers: ma.TaskLibAnswers = <ma.TaskLibAnswers>{
+    "find": {
+        "path/to/file.json": ['path/to/file.json']
+    }
+};
+tmr.setAnswers(answers);
+
+// Register a mock of the cosmos lib - we're not here to test its functionality
 // but we need to mock some of its contents.
 tmr.registerMock('@azure/cosmos', {
     CosmosClient: function(endpoint : string, key : string) {
@@ -28,7 +35,7 @@ tmr.registerMock('@azure/cosmos', {
                 createIfNotExists: async function ({}) {
                     return {
                         database: {
-                            id: "someDatabase"
+                            id: "example-database"
                         }
                     }
                 }
@@ -39,7 +46,7 @@ tmr.registerMock('@azure/cosmos', {
                         createIfNotExists: async function({}) {
                             return {
                                 container: {
-                                    id: "someContainer",
+                                    id: "example-container",
                                     items : {
                                         upsert: function({}) {
                                             return;

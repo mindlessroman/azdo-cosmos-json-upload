@@ -5,8 +5,15 @@ import path = require('path');
 let taskPath = path.join(__dirname, '..', 'index.js');
 let tmr: tmrm.TaskMockRunner = new tmrm.TaskMockRunner(taskPath);
 
-tmr.setInput('cosmosEndpoint', 'badurl');
-tmr.setInput('cosmosKey', 'badKey');
+let answers: ma.TaskLibAnswers = <ma.TaskLibAnswers>{
+    "find": {
+        "path/to/file.json": ['path/to/file.json']
+    }
+};
+tmr.setAnswers(answers);
+
+tmr.setInput('cosmosEndpointName', 'badurl');
+tmr.setInput('cosmosKeyName', 'badKey');
 tmr.setInput('cosmosDatabase', 'example-database');
 tmr.setInput('cosmosContainer', 'example-container');
 tmr.setInput('cosmosPartition', '/example-partition')

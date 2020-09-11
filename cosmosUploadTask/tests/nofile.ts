@@ -5,8 +5,8 @@ import path = require('path');
 let taskPath = path.join(__dirname, '..', 'index.js');
 let tmr: tmrm.TaskMockRunner = new tmrm.TaskMockRunner(taskPath);
 
-tmr.setInput('cosmosEndpoint', 'http://goodurl.com');
-tmr.setInput('cosmosKey', 'somekey');
+tmr.setInput('cosmosEndpointName', 'http://goodurl.com');
+tmr.setInput('cosmosKeyName', 'somekey');
 tmr.setInput('cosmosDatabase', 'example-database');
 tmr.setInput('cosmosContainer', 'example-container');
 tmr.setInput('cosmosPartition', '/example-partition')
