@@ -42,10 +42,6 @@ async function run() {
         // Get the CosmosClient to connect to the CosmosDB instance
         const client = new azcosmos.CosmosClient({ endpoint, key });
 
-        if (!client) {
-            throw new Error('Cannot connect CosmosClient with provided credentials');
-        }
-
         // Read the JSON file
         records = js.readFileSync(fileLocation);
 
@@ -61,7 +57,7 @@ async function run() {
         console.log('Beginning upsert process...');
         for (const record of records) {
             container.items.upsert(record);
-            console.log('Upserted', record);
+            console.log('Upserted record');
         }
 
         console.log('Upload complete');
