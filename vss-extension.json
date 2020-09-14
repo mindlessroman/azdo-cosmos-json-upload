@@ -13,7 +13,7 @@
         }
     ],
     "icons": {
-        "default": "images/extension-icon.png"
+        "default": "vss-extension-icon.png"
     },
     "contributions": [
         {
@@ -31,5 +31,23 @@
         {
             "path": "cosmosUploadTask"
         }
-    ]
+    ],
+    "repository": {
+        "type": "git",
+        "uri": "https://github.com/mindlessroman/azdo-cosmos-json-upload"
+    },
+    "content": {
+        "details": {
+            "path": "overview.md"
+        }
+    },
+    "links": {
+        "support": {
+            "uri": "https://github.com/mindlessroman/azdo-cosmos-json-upload/issues"
+        },
+        "license": {
+            "uri": "https://github.com/mindlessroman/azdo-cosmos-json-upload/blob/master/LICENSE"
+        }
+    },
+    "tags": ["cosmosdb", "azure", "azure cosmos", "cosmos db", "json upload"]
 }
