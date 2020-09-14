@@ -3,20 +3,11 @@ import * as assert from 'assert';
 import * as ttm from 'azure-pipelines-task-lib/mock-test';
 
 describe('Upload JSON to Cosmos DB tests', function () {
-
-    before( function() {
-
-    });
-
-    after(() => {
-
-    });
-
     it('should succeed with basic inputs with a declared/well-formatted partition key', function(done: Mocha.Done) {
         this.timeout(1000);
 
-        let tp = path.join(__dirname, 'success_partKey.js');
-        let tr: ttm.MockTestRunner = new ttm.MockTestRunner(tp);
+        const tp = path.join(__dirname, 'success_partKey.js');
+        const tr: ttm.MockTestRunner = new ttm.MockTestRunner(tp);
 
         tr.run();
         console.log(tr.succeeded);
@@ -31,8 +22,8 @@ describe('Upload JSON to Cosmos DB tests', function () {
     it('should succeed with basic inputs without a declared partition key', function(done: Mocha.Done) {
         this.timeout(1000);
 
-        let tp = path.join(__dirname, 'success_noPartKey.js');
-        let tr: ttm.MockTestRunner = new ttm.MockTestRunner(tp);
+        const tp = path.join(__dirname, 'success_noPartKey.js');
+        const tr: ttm.MockTestRunner = new ttm.MockTestRunner(tp);
 
         tr.run();
         console.log(tr.succeeded);
@@ -47,8 +38,8 @@ describe('Upload JSON to Cosmos DB tests', function () {
     it('should fail with a badly-formatted URL input', function(done: Mocha.Done) {
         this.timeout(1000);
 
-        let tp = path.join(__dirname, 'badurl.js');
-        let tr: ttm.MockTestRunner = new ttm.MockTestRunner(tp);
+        const tp = path.join(__dirname, 'badurl.js');
+        const tr: ttm.MockTestRunner = new ttm.MockTestRunner(tp);
 
         tr.run();
         console.log(tr.succeeded);
@@ -63,8 +54,8 @@ describe('Upload JSON to Cosmos DB tests', function () {
     it('should fail with no URL input', function(done: Mocha.Done) {
         this.timeout(1000);
 
-        let tp = path.join(__dirname, 'nourl.js');
-        let tr: ttm.MockTestRunner = new ttm.MockTestRunner(tp);
+        const tp = path.join(__dirname, 'nourl.js');
+        const tr: ttm.MockTestRunner = new ttm.MockTestRunner(tp);
 
         tr.run();
         console.log(tr.succeeded);
@@ -79,8 +70,8 @@ describe('Upload JSON to Cosmos DB tests', function () {
     it('should fail with a missing primary key', function(done: Mocha.Done) {
         this.timeout(1000);
 
-        let tp = path.join(__dirname, 'nokey.js');
-        let tr: ttm.MockTestRunner = new ttm.MockTestRunner(tp);
+        const tp = path.join(__dirname, 'nokey.js');
+        const tr: ttm.MockTestRunner = new ttm.MockTestRunner(tp);
 
         tr.run();
         console.log(tr.succeeded);
@@ -95,15 +86,15 @@ describe('Upload JSON to Cosmos DB tests', function () {
     it('should fail when the partition key is poorly formatted', function(done: Mocha.Done) {
         this.timeout(1000);
 
-        let tp = path.join(__dirname, 'badpartkey.js');
-        let tr: ttm.MockTestRunner = new ttm.MockTestRunner(tp);
+        const tp = path.join(__dirname, 'badpartkey.js');
+        const tr: ttm.MockTestRunner = new ttm.MockTestRunner(tp);
 
         tr.run();
         console.log(tr.succeeded);
         console.log(tr.stdout);
         assert.equal(tr.succeeded, false, 'should have failed');
-        assert.equal(tr.errorIssues.length > 0, true, 'should error out without proper formatting - missing \/');
-        assert.equal(tr.errorIssues.includes('If providing a partition key, it must be preceded by a \/'), true, 'should report a missing slash error');
+        assert.equal(tr.errorIssues.length > 0, true, 'should error out without proper formatting - missing /');
+        assert.equal(tr.errorIssues.includes('If providing a partition key, it must be preceded by a /'), true, 'should report a missing slash error');
         console.log(tr.stdout);
         done();
     });
@@ -111,8 +102,8 @@ describe('Upload JSON to Cosmos DB tests', function () {
     it('should fail without a reference to the file', function(done: Mocha.Done) {
         this.timeout(1000);
 
-        let tp = path.join(__dirname, 'nofile.js');
-        let tr: ttm.MockTestRunner = new ttm.MockTestRunner(tp);
+        const tp = path.join(__dirname, 'nofile.js');
+        const tr: ttm.MockTestRunner = new ttm.MockTestRunner(tp);
 
         tr.run();
         console.log(tr.succeeded);
@@ -127,8 +118,8 @@ describe('Upload JSON to Cosmos DB tests', function () {
     it('should fail if upload file is not JSON format', function(done: Mocha.Done) {
         this.timeout(1000);
 
-        let tp = path.join(__dirname, 'notjson.js');
-        let tr: ttm.MockTestRunner = new ttm.MockTestRunner(tp);
+        const tp = path.join(__dirname, 'notjson.js');
+        const tr: ttm.MockTestRunner = new ttm.MockTestRunner(tp);
 
         tr.run();
         console.log(tr.succeeded);
