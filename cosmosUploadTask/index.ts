@@ -3,15 +3,15 @@ import azcosmos = require('@azure/cosmos');
 import js = require('jsonfile');
 
 // global-ish
-var records: Array<JSON> = [];
+let records: Array<JSON> = [];
 
 async function run() {
     try {
         const inputEndpoint: string | undefined = (tl.getInput('cosmosEndpointName', true))!;
         const inputKey: string | undefined = (tl.getInput('cosmosKeyName', true))!;
 
-        var endpoint = inputEndpoint!;
-        var key = inputKey!;
+        const endpoint = inputEndpoint!;
+        const key = inputKey!;
 
         const inputDatabase: string | undefined = (tl.getInput('cosmosDatabase', true))!;
         const inputContainer: string | undefined = (tl.getInput('cosmosContainer', true))!;
@@ -20,11 +20,11 @@ async function run() {
 
         // Situate in the temp directory
         // Thank you HelmDeployV0 Task for inspo
-        var rootDir = tl.getVariable('System.DefaultWorkingDirectory') || '';
+        const rootDir = tl.getVariable('System.DefaultWorkingDirectory') || '';
         console.log('Setting root directory to', rootDir);
 
-        var allPaths = tl.find(inputFileLocation, { allowBrokenSymbolicLinks: true, followSpecifiedSymbolicLink: true,followSymbolicLinks: true });
-        var matching = tl.match(allPaths, inputFileLocation, rootDir, {matchBase: false});
+        const allPaths = tl.find(inputFileLocation, { allowBrokenSymbolicLinks: true, followSpecifiedSymbolicLink: true,followSymbolicLinks: true });
+        const matching = tl.match(allPaths, inputFileLocation, rootDir, {matchBase: false});
 
         if (!matching || matching.length == 0) {
             throw new Error('Cannot resolve path.');
@@ -32,7 +32,7 @@ async function run() {
         const fileLocation = matching[0];
 
         if (inputPartition && !inputPartition.startsWith('/')) {
-            throw new Error('If providing a partition key, it must be preceded by a \/');
+            throw new Error('If providing a partition key, it must be preceded by a /');
         }
 
         if (!fileLocation.toLowerCase().endsWith('.json')) {
@@ -61,6 +61,7 @@ async function run() {
         }
 
         console.log('Upload complete');
+        tl.setResult(tl.TaskResult.Succeeded, '');
     }
     catch (err) {
         tl.setResult(tl.TaskResult.Failed, err.message);
