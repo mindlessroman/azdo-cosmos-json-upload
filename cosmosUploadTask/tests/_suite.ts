@@ -139,20 +139,4 @@ describe('Sample task tests', function () {
         console.log(tr.stdout);
         done();
     });
-
-    it('should fail if credentials are bad', function(done: Mocha.Done) {
-        this.timeout(1000);
-
-        let tp = path.join(__dirname, 'badcreds.js');
-        let tr: ttm.MockTestRunner = new ttm.MockTestRunner(tp);
-
-        tr.run();
-        console.log(tr.succeeded);
-        console.log(tr.stdout);
-        assert.equal(tr.succeeded, false, 'should have failed');
-        assert.equal(tr.errorIssues.length > 0, true, 'should error bad file ending');
-        assert.equal(tr.errorIssues.includes('Expected JSON file'), true, 'should report wrong file types');
-        console.log(tr.stdout);
-        done();
-    });
 });
