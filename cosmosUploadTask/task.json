@@ -59,10 +59,10 @@
         {
             "name": "fileLocation",
             "type": "filePath",
-            "label": "File path",
+            "label": "JSON File Path in Repository",
             "defaultValue": "",
             "required": true,
-            "helpMarkDown": "Path of the script to execute. Must be a relative path from `$(System.DefaultWorkingDirectory)`."
+            "helpMarkDown": "Path to the JSON file in the repository. Must be a relative path from `$(System.DefaultWorkingDirectory)`."
         }
     ],
     "groups": [],
