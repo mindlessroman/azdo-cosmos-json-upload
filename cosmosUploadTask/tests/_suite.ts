@@ -2,7 +2,7 @@ import * as path from 'path';
 import * as assert from 'assert';
 import * as ttm from 'azure-pipelines-task-lib/mock-test';
 
-describe('Sample task tests', function () {
+describe('Upload JSON to Cosmos DB tests', function () {
 
     before( function() {
 
