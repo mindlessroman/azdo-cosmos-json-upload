@@ -5,7 +5,7 @@ pool:
   vmImage: "ubuntu-latest"
 
 variables:
-  - group: variable-group
+  - group: vg-release
 
 stages:
   - stage: Run_and_publish_unit_tests
