@@ -82,7 +82,7 @@ stages:
               PathtoPublish: '$(Build.ArtifactStagingDirectory)'
               ArtifactName: '$(ArtifactName)'
               publishLocation: 'Container'
-  - stage: Download_build_artifacts_and_ publish_the_extension
+  - stage: Download_build_artifacts_and_publish_the_extension
     jobs:
       - job:
         steps:
