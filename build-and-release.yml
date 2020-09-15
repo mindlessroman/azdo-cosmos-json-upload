@@ -30,7 +30,7 @@ stages:
             inputs:
               command: 'custom'
               workingDir: '/cosmosUploadTask/tests'
-              customCommand: 'testScript'
+              customCommand: 'test'
           - task: PublishTestResults@2
             inputs:
               testResultsFormat: 'JUnit'
