@@ -18,7 +18,7 @@ stages:
           - task: Npm@1
             inputs:
               command: 'install'
-              workingDir: '/cosmosUploadTask' # This needs to change
+              workingDir: 'cosmosUploadTask' # This needs to change
           - task: Bash@3
             displayName: Compile Javascript
             inputs:
@@ -29,7 +29,7 @@ stages:
           - task: Npm@1
             inputs:
               command: 'custom'
-              workingDir: '/cosmosUploadTask/tests'
+              workingDir: 'cosmosUploadTask/tests'
               customCommand: 'test'
           - task: PublishTestResults@2
             inputs:
