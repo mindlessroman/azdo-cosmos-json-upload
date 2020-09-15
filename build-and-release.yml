@@ -5,7 +5,7 @@ pool:
   vmImage: "ubuntu-latest"
 
 variables:
-  - group: variable-group
+  - group: vg-release
 
 stages:
   - stage: Run_and_publish_unit_tests
@@ -18,7 +18,7 @@ stages:
           - task: Npm@1
             inputs:
               command: 'install'
-              workingDir: '/cosmosUploadTask' # This needs to change
+              workingDir: 'cosmosUploadTask' # This needs to change
           - task: Bash@3
             displayName: Compile Javascript
             inputs:
@@ -29,7 +29,7 @@ stages:
           - task: Npm@1
             inputs:
               command: 'custom'
-              workingDir: '/cosmosUploadTask/tests'
+              workingDir: 'cosmosUploadTask/tests'
               customCommand: 'test'
           - task: PublishTestResults@2
             inputs:
@@ -82,7 +82,7 @@ stages:
               PathtoPublish: '$(Build.ArtifactStagingDirectory)'
               ArtifactName: '$(ArtifactName)'
               publishLocation: 'Container'
-  - stage: Download_build_artifacts_and_ publish_the_extension
+  - stage: Download_build_artifacts_and_publish_the_extension
     jobs:
       - job:
         steps:
