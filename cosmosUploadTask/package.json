@@ -1,10 +1,10 @@
 {
   "name": "cosmosdbuploadjson",
-  "version": "1.0.0",
+  "version": "0.1.13",
   "description": "upload json data to a cosmosdb instance",
   "main": "index.js",
   "scripts": {
-    "test": "mocha tests/_suite.js --reporter xunit --reporter-option option=ResultsFile.xml"
+    "test": "tsc && mocha tests/_suite.js --reporter xunit --reporter-option option=ResultsFile.xml"
   },
   "author": "Hannah Kennedy, Microsoft",
   "license": "MIT",
