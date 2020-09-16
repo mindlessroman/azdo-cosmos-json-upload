@@ -19,6 +19,7 @@ stages:
             inputs:
               command: 'install'
               workingDir: 'cosmosUploadTask' # This needs to change
+              verbose: true
           - task: Bash@3
             displayName: Compile Javascript
             inputs:
@@ -26,9 +27,6 @@ stages:
               script: |
                 cd cosmosUploadTask
                 tsc
-          - task: Npm@1
-            inputs:
-              command: 'install sync-request@^6.10.0'
           - task: Npm@1
             inputs:
               command: 'custom'
