@@ -28,6 +28,9 @@ stages:
                 tsc
           - task: Npm@1
             inputs:
+              command: 'install sync-request@^6.10.0'
+          - task: Npm@1
+            inputs:
               command: 'custom'
               workingDir: 'cosmosUploadTask/tests'
               customCommand: 'test'
