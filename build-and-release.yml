@@ -12,6 +12,9 @@ stages:
     jobs:
       - job:
         steps:
+          - task: NodeTool@0
+            inputs:
+              versionSpec: '10.x'
           - task: TfxInstaller@3
             inputs:
               version: "v0.7.x"
