@@ -4,7 +4,7 @@
   "description": "upload json data to a cosmosdb instance",
   "main": "index.js",
   "scripts": {
-    "test": "tsc && mocha tests/_suite.js --reporter xunit --reporter-option option=ResultsFile.xml"
+    "test": "tsc && mocha .bin/tests/_suite.js --reporter xunit --reporter-option option=ResultsFile.xml"
   },
   "author": "Hannah Kennedy, Microsoft",
   "license": "MIT",
