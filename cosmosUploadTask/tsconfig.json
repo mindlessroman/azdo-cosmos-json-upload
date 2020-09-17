@@ -2,12 +2,13 @@
   "compileOnSave": true,
   "compilerOptions": {
     /* Visit https://aka.ms/tsconfig.json to read more about this file */
-
+    "outDir": ".bin",
     "target": "es6",
     "module": "commonjs",
     "strict": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true
-  }
+  },
+  "exclude": ["node_modules"]
 }
