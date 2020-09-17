@@ -35,6 +35,7 @@ stages:
               command: 'custom'
               workingDir: 'cosmosUploadTask/tests'
               customCommand: 'test'
+              verbose: true
           - task: PublishTestResults@2
             inputs:
               testResultsFormat: 'JUnit'
