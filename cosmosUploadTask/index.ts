@@ -23,8 +23,7 @@ async function run() {
         const rootDir = tl.getVariable('System.DefaultWorkingDirectory') || '';
         console.log('Setting root directory to', rootDir);
 
-        const allPaths = tl.find(inputFileLocation, { allowBrokenSymbolicLinks: true, followSpecifiedSymbolicLink: true,followSymbolicLinks: true });
-        const matching = tl.match(allPaths, inputFileLocation, rootDir, {matchBase: false});
+        const matching = tl.findMatch(rootDir, inputFileLocation); // include find and match options?
 
         if (!matching || matching.length == 0) {
             throw new Error('Cannot resolve path.');
