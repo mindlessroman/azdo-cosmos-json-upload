@@ -4,7 +4,7 @@ import * as ttm from 'azure-pipelines-task-lib/mock-test';
 
 describe('Upload JSON to Cosmos DB tests', function () {
     it('should succeed with basic inputs with a declared/well-formatted partition key', function(done: Mocha.Done) {
-        this.timeout(1000);
+        this.timeout(5000);
 
         const tp = path.join(__dirname, 'success_partKey.js');
         const tr: ttm.MockTestRunner = new ttm.MockTestRunner(tp);
