@@ -11,7 +11,6 @@ describe('Upload JSON to Cosmos DB tests', function () {
 
         tr.run();
         console.log(tr.succeeded);
-        console.log(tr.stdout);
         assert.equal(tr.succeeded, true, 'should have succeeded');
         assert.equal(tr.warningIssues.length, 0, 'should have no warnings');
         assert.equal(tr.errorIssues.length, 0, 'should have no errors');
@@ -27,7 +26,6 @@ describe('Upload JSON to Cosmos DB tests', function () {
 
         tr.run();
         console.log(tr.succeeded);
-        console.log(tr.stdout);
         assert.equal(tr.succeeded, true, 'should have succeeded');
         assert.equal(tr.warningIssues.length, 0, 'should have no warnings');
         assert.equal(tr.errorIssues.length, 0, 'should have no errors');
@@ -43,11 +41,9 @@ describe('Upload JSON to Cosmos DB tests', function () {
 
         tr.run();
         console.log(tr.succeeded);
-        console.log(tr.stdout);
         assert.equal(tr.succeeded, false, 'should have failed');
         assert.equal(tr.errorIssues.length > 0, true, 'should error out with a missing URL');
         assert.equal(tr.errorIssues.includes('Invalid URL: badurl'), true, 'should report a bad URL');
-        console.log(tr.stdout);
         done();
     });
 
@@ -59,11 +55,9 @@ describe('Upload JSON to Cosmos DB tests', function () {
 
         tr.run();
         console.log(tr.succeeded);
-        console.log(tr.stdout);
         assert.equal(tr.succeeded, false, 'should have failed');
         assert.equal(tr.errorIssues.length > 0, true, 'should error out with a missing URL');
         assert.equal(tr.errorIssues.includes('Input required: cosmosEndpointName'), true, 'should report a bad URL');
-        console.log(tr.stdout);
         done();
     });
 
@@ -75,11 +69,9 @@ describe('Upload JSON to Cosmos DB tests', function () {
 
         tr.run();
         console.log(tr.succeeded);
-        console.log(tr.stdout);
         assert.equal(tr.succeeded, false, 'should have failed');
         assert.equal(tr.errorIssues.length > 0, true, 'should error out with a missing input');
         assert.equal(tr.errorIssues.includes('Input required: cosmosKeyName'), true, 'should report a missing key error');
-        console.log(tr.stdout);
         done();
     });
 
@@ -91,11 +83,9 @@ describe('Upload JSON to Cosmos DB tests', function () {
 
         tr.run();
         console.log(tr.succeeded);
-        console.log(tr.stdout);
         assert.equal(tr.succeeded, false, 'should have failed');
         assert.equal(tr.errorIssues.length > 0, true, 'should error out without proper formatting - missing /');
         assert.equal(tr.errorIssues.includes('If providing a partition key, it must be preceded by a /'), true, 'should report a missing slash error');
-        console.log(tr.stdout);
         done();
     });
 
@@ -107,11 +97,9 @@ describe('Upload JSON to Cosmos DB tests', function () {
 
         tr.run();
         console.log(tr.succeeded);
-        console.log(tr.stdout);
         assert.equal(tr.succeeded, false, 'should have failed');
         assert.equal(tr.errorIssues.length > 0, true, 'should error with missing file');
         assert.equal(tr.errorIssues.includes('Input required: fileLocation'), true, 'should report a missing file error');
-        console.log(tr.stdout);
         done();
     });
 
@@ -123,11 +111,9 @@ describe('Upload JSON to Cosmos DB tests', function () {
 
         tr.run();
         console.log(tr.succeeded);
-        console.log(tr.stdout);
         assert.equal(tr.succeeded, false, 'should have failed');
         assert.equal(tr.errorIssues.length > 0, true, 'should error bad file ending');
         assert.equal(tr.errorIssues.includes('Expected JSON file'), true, 'should report wrong file types');
-        console.log(tr.stdout);
         done();
     });
 });
