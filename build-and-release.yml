@@ -105,7 +105,7 @@ stages:
               connectTo: 'VsTeam'
               connectedServiceName: 'MarketplaceConnection'
               fileType: 'vsix'
-              vsixFile: '/$(ArtifactName)*.vsix'
+              vsixFile: '/$(ArtifactName).vsix'
               publisherId: '$(PublisherID)'
               extensionId: '$(ExtensionID)'
               extensionName: '$(ExtensionName)'
