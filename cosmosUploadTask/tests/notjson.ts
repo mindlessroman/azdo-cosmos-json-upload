@@ -7,7 +7,7 @@ const tmr: tmrm.TaskMockRunner = new tmrm.TaskMockRunner(taskPath);
 
 const answers: ma.TaskLibAnswers = <ma.TaskLibAnswers>{
     "findMatch": {
-        "path/to/file.json": ['path/to/file.json']
+        "path/to/file.txt": ['path/to/file.txt']
     }
 };
 tmr.setAnswers(answers);
