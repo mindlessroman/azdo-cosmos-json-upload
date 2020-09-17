@@ -6,7 +6,7 @@ const taskPath = path.join(__dirname, '..', 'index.js');
 const tmr: tmrm.TaskMockRunner = new tmrm.TaskMockRunner(taskPath);
 
 const answers: ma.TaskLibAnswers = <ma.TaskLibAnswers>{
-    "find": {
+    "findMatch": {
         "path/to/file.json": ['path/to/file.json']
     }
 };

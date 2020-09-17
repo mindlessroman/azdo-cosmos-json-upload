@@ -20,7 +20,7 @@ tmr.registerMock('jsonfile', {
 })
 
 const answers: ma.TaskLibAnswers = <ma.TaskLibAnswers>{
-    "find": {
+    "findMatch": {
         "path/to/file.json": ['path/to/file.json']
     }
 };
