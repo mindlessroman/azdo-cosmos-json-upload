@@ -68,7 +68,7 @@
     "groups": [],
     "execution": {
         "Node10": {
-            "target": "index.js"
+            "target": "./.bin/index.js"
         }
     }
 }
