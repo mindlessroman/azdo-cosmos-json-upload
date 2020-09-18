@@ -83,7 +83,7 @@ variables:
 
 ![An image that has the individual fields filled in for the example task. The two values of
 `cosmosEndpoint` and `cosmosPrimaryKey` are both currently surrounded by single quotation marks,
-which cause the pipeline task to fail if left as-is](./docs-images/pipeline-task-before.png)
+which will cause the pipeline task to fail if left as-is](./docs-images/pipeline-task-before.png)
 
 5. Finally, switch the single-quotation marks around the endpoint and key variable names and switch to
 the [variable syntax](https://docs.microsoft.com/en-us/azure/devops/pipelines/process/variables?view=azure-devops&tabs=yaml%2Cbatch)
