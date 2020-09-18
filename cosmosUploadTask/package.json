@@ -1,6 +1,6 @@
 {
   "name": "cosmosdbuploadjson",
-  "version": "0.1.13",
+  "version": "0.1.14",
   "description": "upload json data to a cosmosdb instance",
   "main": "index.js",
   "scripts": {
