@@ -1,0 +1,43 @@
+## Build Pipeline which is just the first part of the build-release
+trigger:
+- master
+
+pool:
+  vmImage: "ubuntu-latest"
+
+variables:
+  - group: vg-release
+
+stages:
+  - stage: Run_and_publish_unit_tests
+    jobs:
+      - job:
+        steps:
+          - task: NodeTool@0
+            inputs:
+              versionSpec: '10.x'
+          - task: TfxInstaller@3
+            inputs:
+              version: "v0.7.x"
+          - task: Npm@1
+            inputs:
+              command: 'install'
+              workingDir: 'cosmosUploadTask'
+              verbose: true
+          - task: Bash@3
+            displayName: Compile Javascript
+            inputs:
+              targetType: "inline"
+              script: |
+                cd cosmosUploadTask
+                tsc
+          - task: Npm@1
+            inputs:
+              command: 'custom'
+              workingDir: 'cosmosUploadTask/tests'
+              customCommand: 'test'
+              verbose: true
+          - task: PublishTestResults@2
+            inputs:
+              testResultsFormat: 'JUnit'
+              testResultsFiles: '**/ResultsFile.xml'
