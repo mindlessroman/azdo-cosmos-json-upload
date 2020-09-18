@@ -2,7 +2,7 @@
     "manifestVersion": 1,
     "id": "json-upload-cosmosdb",
     "publisher": "mindlessroman",
-    "version": "0.1.12",
+    "version": "0.1.14",
     "name": "Azure Cosmos DB Data Upload",
     "description": "An task to automate adding data upload to a Cosmos DB instance",
     "public": true,

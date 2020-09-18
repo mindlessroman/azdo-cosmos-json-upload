@@ -29,12 +29,14 @@ The variables you provide are then accessed by referencing them in the YAML pipe
 
     | Name | Value |
     | --- | --- |
-    | cosmosInstanceEndpoint | http://endpoint-uri.com:443 |
-    | cosmosPrimKey | abcdef123456== |
+    | cosmosEndpoint | http://example-cosmos-instance.documents.azure.com:443 |
+    | cosmosPrimaryKey | abcdef123456== |
     | ... | ... |
 
     ![An image showing the Variable Group setup page in Azure DevOps, with two key-value pairs filled
     in: cosmosEndpoint and cosmosPrimaryKey, along with their respective values.](./docs-images/variable-group-setup.png)
+
+    Ideally, mark your primary key as a [secret](https://docs.microsoft.com/en-us/azure/devops/pipelines/process/variables?view=azure-devops&tabs=yaml%2Cbatch#secret-variables)
 
 2. Add the reference to the variable group in the relevant syntax. This example will use the macro
 syntax.
@@ -81,7 +83,7 @@ variables:
 
 ![An image that has the individual fields filled in for the example task. The two values of
 `cosmosEndpoint` and `cosmosPrimaryKey` are both currently surrounded by single quotation marks,
-which cause the pipelien task to fail if left as-is](./docs-images/pipeline-task-before.png)
+which cause the pipeline task to fail if left as-is](./docs-images/pipeline-task-before.png)
 
 5. Finally, switch the single-quotation marks around the endpoint and key variable names and switch to
 the [variable syntax](https://docs.microsoft.com/en-us/azure/devops/pipelines/process/variables?view=azure-devops&tabs=yaml%2Cbatch)
@@ -110,8 +112,10 @@ wrapped in the variable macro syntax. The two lines are highlighted in yellow al
 
 The task needs a few pieces of information as inputs to function:
 
-* The Cosmos DB instance's URI (found in the `Keys` subsection) - `cosmosEndpointName`
-* The primary key for that instance (also found in the `Keys` subsection - `cosmosKeyName`
+* The name of the variable in the to-be-specified variable group that contains the Cosmos DB instance's
+URI (found in the `Keys` subsection) - `cosmosEndpointName`
+* The name of the variable in the to-be-specified variable group that contains the primary key for
+that instance (also found in the `Keys` subsection) - `cosmosKeyName`
 * The name of the database that information will land in; if it does not exist, the pipeline task
 will create it - `cosmosDatabase`
 * The name of the container (similar to the table structure of a relational database) that the information
