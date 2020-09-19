@@ -1,12 +1,9 @@
 ## Build Pipeline which is just the first part of the build-release
 trigger:
-- master
+- pr
 
 pool:
   vmImage: "ubuntu-latest"
-
-variables:
-  - group: vg-release
 
 stages:
   - stage: Run_and_publish_unit_tests
@@ -14,12 +11,15 @@ stages:
       - job:
         steps:
           - task: NodeTool@0
+            displayName: Install Node10
             inputs:
               versionSpec: '10.x'
           - task: TfxInstaller@3
+            displayName: Install Tfx - Task Builder Utilities
             inputs:
               version: "v0.7.x"
           - task: Npm@1
+            displayName: Install task dependencies
             inputs:
               command: 'install'
               workingDir: 'cosmosUploadTask'
@@ -32,12 +32,14 @@ stages:
                 cd cosmosUploadTask
                 tsc
           - task: Npm@1
+            displayName: Run Tests
             inputs:
               command: 'custom'
               workingDir: 'cosmosUploadTask/tests'
               customCommand: 'test'
               verbose: true
           - task: PublishTestResults@2
+            displayName: Test Results
             inputs:
-              testResultsFormat: 'JUnit'
+              testResultsFormat: 'VSTest'
               testResultsFiles: '**/ResultsFile.xml'

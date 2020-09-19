@@ -1,2 +1,14 @@
 # Ignore node modules from node
-node_modules/*
+node_modules
+
+#ignore the compiled js
+.bin/
+
+# VSCODE
+.vscode
+
+# Packages for marketplace
+*.vsix
+
+# tfx runtime files
+.taskkey
