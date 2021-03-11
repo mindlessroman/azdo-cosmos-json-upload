@@ -5,32 +5,70 @@ import path = require('path');
 const taskPath = path.join(__dirname, '..', 'index.js');
 const tmr: tmrm.TaskMockRunner = new tmrm.TaskMockRunner(taskPath);
 
-// Set up the "environment" inputs
+// set up the environment
+tmr.setInput('optInTelemetry', 'true');
 tmr.setInput('aiKey', 'someAIKey');
-tmr.setInput('optInTelemetry', 'false');
 tmr.setInput('cosmosEndpointName', 'https://cosmosdb.com');
 tmr.setInput('cosmosKeyName', 'someKey');
 tmr.setInput('cosmosDatabase', 'example-database');
 tmr.setInput('cosmosContainer', 'example-container');
-tmr.setInput('cosmosPartition', '/example-partition');
 tmr.setInput('fileLocation', 'path/to/file.json');
 
-// // Mock the libraries that are imported: jsonfile, @azure/cosmos
+tmr.registerMock('applicationinsights', {
+    defaultClient: {
+        trackEvent: function() {
+            return;
+        },
+        flush: function() {
+            return;
+        }
+    },
+    DistributedTracingModes: function() {
+        return;
+    },
+    setup: function() {
+        return {
+            setAutoDependencyCorrelation: function() {
+                return {
+                    setAutoCollectDependencies: function() {
+                        return {
+                            setAutoCollectConsole: function() {
+                                return {
+                                    setAutoCollectPerformance: function() {
+                                        return {
+                                            setAutoCollectExceptions: function() {
+                                                return {
+                                                    setSendLiveMetrics: function() {
+                                                        return {
+                                                            setDistributedTracingMode: function () {
+                                                                return {
+                                                                    start: function() {
+                                                                        return {};
+                                                                    }
+                                                                };
+                                                            }
+                                                        };
+                                                    }
+                                                };
+                                            }
+                                        };
+                                    }
+                                };
+                            }
+                        };
+                    }
+                };
+            }
+        };
+    },
+});
+
 tmr.registerMock('jsonfile', {
     readFileSync: function() {
         return [1,2,3];
     }
 });
 
-const answers: ma.TaskLibAnswers = <ma.TaskLibAnswers>{
-    'findMatch': {
-        'path/to/file.json': ['path/to/file.json']
-    }
-};
-tmr.setAnswers(answers);
-
-// Register a mock of the cosmos lib - we're not here to test its functionality
-// but we need to mock some of its contents.
 tmr.registerMock('@azure/cosmos', {
     CosmosClient: function() {
         return {
@@ -75,5 +113,12 @@ tmr.registerMock('@azure/cosmos', {
         };
     }
 });
+
+const answers: ma.TaskLibAnswers = <ma.TaskLibAnswers>{
+    'findMatch': {
+        'path/to/file.json': ['path/to/file.json']
+    }
+};
+tmr.setAnswers(answers);
 
 tmr.run();

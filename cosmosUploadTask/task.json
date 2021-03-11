@@ -9,8 +9,8 @@
     "author": "Hannah K (@mindlessroman)",
     "version": {
         "Major": 0,
-        "Minor": 1,
-        "Patch": 14
+        "Minor": 2,
+        "Patch": 0
     },
     "runsOn": [],
     "visibility": [],
@@ -62,7 +62,20 @@
             "label": "JSON File Path in Repository",
             "defaultValue": "",
             "required": true,
-            "helpMarkDown": "Path to the JSON file in the repository. Must be a relative path from `$(System.DefaultWorkingDirectory)`."
+            "helpMarkDown": "Path to the JSON file in the repository. Must be a relative path from `$(System.DefaultWorkingDirectory)`"
+        },
+        {
+            "name": "optInTelemetry",
+            "type": "boolean",
+            "label": "Opt-In for Telemetry?",
+            "helpMarkDown": "Opting in will send usage and minimal error problems to help improve the experience"
+        },
+        {
+            "name": "aiKey",
+            "type": "string",
+            "defaultValue": "some-default-key",
+            "label": "AppInsights Key",
+            "visibleRule": "someVisibilityRule = visibilityCondition"
         }
     ],
     "groups": [],

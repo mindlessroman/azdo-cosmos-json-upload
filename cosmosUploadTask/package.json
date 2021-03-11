@@ -1,6 +1,6 @@
 {
   "name": "cosmosdbuploadjson",
-  "version": "0.1.14",
+  "version": "0.2.0",
   "description": "upload json data to a cosmosdb instance",
   "main": "index.js",
   "scripts": {
@@ -9,17 +9,21 @@
   "author": "Hannah Kennedy, Microsoft",
   "license": "MIT",
   "dependencies": {
-    "azure-pipelines-task-lib": "^2.10.0"
+    "applicationinsights": "^1.8.10",
+    "azure-pipelines-task-lib": "^2.10.0",
+    "typescript": "^4.1.5",
+    "uuid": "^8.3.2"
   },
   "devDependencies": {
     "@azure/cosmos": "^3.9.0",
     "@types/jsonfile": "^6.0.0",
     "@types/mocha": "^8.0.3",
     "@types/node": "^14.6.0",
-    "@types/q": "^1.5.4",
+    "@types/uuid": "^8.3.0",
+    "@typescript-eslint/eslint-plugin": "^4.15.1",
+    "@typescript-eslint/parser": "^4.15.1",
+    "eslint": "^7.20.0",
     "jsonfile": "^6.0.1",
-    "mocha": "^8.1.1",
-    "sync-request": "^6.1.0",
-    "typescript": "^4.0.2"
+    "mocha": "^8.1.1"
   }
 }

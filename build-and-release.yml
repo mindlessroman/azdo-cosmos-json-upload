@@ -1,5 +1,5 @@
 trigger:
-- master
+- none
 
 pool:
   vmImage: "ubuntu-latest"
@@ -72,7 +72,7 @@ stages:
               connectedServiceName: 'MarketplaceConnection'
               publisherId: '$(PublisherID)'
               extensionId: '$(ExtensionID)'
-              versionAction: 'Patch'
+              versionAction: 'Minor'
               outputVariable: 'Task.Extension.Version'
           - task: PackageAzureDevOpsExtension@3
             displayName: Package the task
@@ -82,8 +82,7 @@ stages:
               extensionId: '$(ExtensionID)'
               extensionName: '$(ExtensionName)'
               extensionVersion: '$(Task.Extension.Version)'
-              updateTasksVersion: true
-              updateTasksVersionType: 'patch'
+              updateTasksVersion: false
               extensionVisibility: 'public'
               extensionPricing: 'free'
           - task: CopyFiles@2
