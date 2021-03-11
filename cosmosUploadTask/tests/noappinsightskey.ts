@@ -4,11 +4,12 @@ import path = require('path');
 const taskPath = path.join(__dirname, '..', 'index.js');
 const tmr: tmrm.TaskMockRunner = new tmrm.TaskMockRunner(taskPath);
 
-tmr.setInput('optInTelemetry', 'false'); // not needed for this test
-tmr.setInput('aiKey', 'someAIKey');
-tmr.setInput('cosmosEndpointName', 'http://goodurl.com');
-tmr.setInput('cosmosKeyName', 'somekey');
+// Set up the "environment" inputs
+tmr.setInput('optInTelemetry', 'true');
+tmr.setInput('cosmosEndpointName', 'https://cosmosdb.com');
+tmr.setInput('cosmosKeyName', 'someKey');
 tmr.setInput('cosmosDatabase', 'example-database');
 tmr.setInput('cosmosContainer', 'example-container');
 tmr.setInput('cosmosPartition', '/example-partition');
+tmr.setInput('fileLocation', 'path/to/file.json');
 tmr.run();

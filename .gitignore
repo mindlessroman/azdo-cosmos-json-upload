@@ -12,3 +12,9 @@ node_modules
 
 # tfx runtime files
 .taskkey
+
+#ignore output
+dist
+
+#ignore an env file
+.env

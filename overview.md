@@ -5,10 +5,29 @@ their code's repository to an instance of a Cosmos DB database and container in 
 
 **Contents**:
 
-* [Why](#Why)
+* [Changelog](#changelog)
+* [Telemetry](#telemetry)
+* [Why](#why)
 * [First Steps](#first-steps)
 * [An Example Scenario](#an-example-scenario)
 * [Necessary Information](#necessary-information)
+
+## Changelog
+
+* 0.2.0 - Includes usage logging (optional), throttling for throughput thresholds
+* 0.1.14 - Initial Release
+
+## Telemetry
+
+Opting into sending telemetry logs the following:
+
+* a timestamped event that X number of records started uploading with a random GUID
+* a timestamped event that those records completed uploading, with that same GUID
+* if any error comes up
+
+... from an AzDO instance to an Azure subscription. Only the fact that distinct users triggered these
+events is visible in logging, and **no information about who you are and where you are uploading to is saved.**
+The purpose is to get a sense of usage of the task, and **not** who is using it.
 
 ## Why
 
@@ -21,7 +40,8 @@ required.
 
 To follow security best practices, you should store the primary key and the URI endpoint in a [variable
 group](https://docs.microsoft.com/en-us/azure/devops/pipelines/library/variable-groups?view=azure-devops&tabs=yaml).
-The variables you provide are then accessed by referencing them in the YAML pipeline you write.
+Please do not store these as plaintext in your pipeline. The variables you provide are then accessed
+by referencing them in the YAML pipeline you write.
 
 ## An Example Scenario
 
@@ -34,7 +54,7 @@ The variables you provide are then accessed by referencing them in the YAML pipe
     | ... | ... |
 
     ![An image showing the Variable Group setup page in Azure DevOps, with two key-value pairs filled
-    in: cosmosEndpoint and cosmosPrimaryKey, along with their respective values.](./docs-images/variable-group-setup.png)
+    in: cosmosEndpoint and cosmosPrimaryKey, along with their respective values.](https://raw.githubusercontent.com/mindlessroman/azdo-cosmos-json-upload/master/docs-images/variable-group-setup.png)
 
     Ideally, mark your primary key as a [secret](https://docs.microsoft.com/en-us/azure/devops/pipelines/process/variables?view=azure-devops&tabs=yaml%2Cbatch#secret-variables)
 
@@ -48,8 +68,8 @@ variables:
 ...
 ```
 
-![An image showing the starter pipeline YAML editor view. The contents are made up of starter content
-with trigger and pool definitions, with the added variables definition included.](./docs-images/add-vg-pipeline.png)
+  ![An image showing the starter pipeline YAML editor view. The contents are made up of starter content
+  with trigger and pool definitions, with the added variables definition included.](https://raw.githubusercontent.com/mindlessroman/azdo-cosmos-json-upload/master/docs-images/add-vg-pipeline.png)
 
 3. Add the Cosmos JSON Upload task. When adding the task to your YAML pipeline, the prompts will ask for a few pieces of information. Fill out the prompts:
 
@@ -60,9 +80,11 @@ with trigger and pool definitions, with the added variables definition included.
     * The name of the container to write to
     * The partition key _(optional)_
     * The path to the JSON file
+    * Whether you opt in for sending telemetry **REQUIRED** - you must indicate true or false if you
+        are including this directly in the YAML and not going through the assistant window.
 
-    ![An image that shows the fields for the upload task filled in with the dummy contents listed in
-    the YAML snippet below](./docs-images/add-cosmos-upload-task.png)
+  ![An image that shows the fields for the upload task filled in with the dummy contents listed in
+  the YAML snippet below](https://raw.githubusercontent.com/mindlessroman/azdo-cosmos-json-upload/master/docs-images/add-cosmos-upload-task.png)
 
 4. Once you click "Add" the following YAML will be generated.
 
@@ -78,12 +100,13 @@ variables:
     cosmosDatabase: 'example-database'
     cosmosContainer: 'example-container'
     fileLocation: 'path/to/example/file.json'
+    optInTelemetry: true
 ...
 ```
 
-![An image that has the individual fields filled in for the example task. The two values of
-`cosmosEndpoint` and `cosmosPrimaryKey` are both currently surrounded by single quotation marks,
-which will cause the pipeline task to fail if left as-is](./docs-images/pipeline-task-before.png)
+  ![An image that has the individual fields filled in for the example task. The two values of
+  `cosmosEndpoint` and `cosmosPrimaryKey` are both currently surrounded by single quotation marks,
+  which will cause the pipeline task to fail if left as-is](https://raw.githubusercontent.com/mindlessroman/azdo-cosmos-json-upload/master/docs-images/pipeline-task-before.png)
 
 5. Finally, switch the single-quotation marks around the endpoint and key variable names and switch to
 the [variable syntax](https://docs.microsoft.com/en-us/azure/devops/pipelines/process/variables?view=azure-devops&tabs=yaml%2Cbatch)
@@ -101,10 +124,12 @@ variables:
     cosmosDatabase: 'example-database'
     cosmosContainer: 'example-container'
     fileLocation: 'path/to/example/file.json'
+    optInTelemetry: true
 ...
 ```
-![An image showing the upload task with the inputs for `cosmosEndpointName` and `cosmosKeyName` are
-wrapped in the variable macro syntax. The two lines are highlighted in yellow alongside the rest of the YAML file.](./docs-images/pipeline-task-after.png)
+
+  ![An image showing the upload task with the inputs for `cosmosEndpointName` and `cosmosKeyName` are
+  wrapped in the variable macro syntax. The two lines are highlighted in yellow alongside the rest of the YAML file.](https://raw.githubusercontent.com/mindlessroman/azdo-cosmos-json-upload/master/docs-images/pipeline-task-after.png)
 
 6. Then once you run the pipeline, everything should proceed with your pipeline as expected.
 
@@ -112,6 +137,8 @@ wrapped in the variable macro syntax. The two lines are highlighted in yellow al
 
 The task needs a few pieces of information as inputs to function:
 
+* A true or false of whether to pass on telemetry; in this task's case this includes timestamps and
+record upload counts - `optInTelemetry`
 * The name of the variable in the to-be-specified variable group that contains the Cosmos DB instance's
 URI (found in the `Keys` subsection) - `cosmosEndpointName`
 * The name of the variable in the to-be-specified variable group that contains the primary key for
